@@ -19,7 +19,7 @@ class Model:
         self.lyss = []
         self.lzss = []
 
-        print("* 生成投影交点……", end='')
+        print("* Generating intersections...", end='')
 
         #calculate fixed points
         self.fixed_points = []
@@ -60,8 +60,8 @@ class Model:
                                 if self.matrix[x][tmpy][z] == 1:
                                     return True
             return False
-            
-        print("完成\n* 优化节点数量……", end='')
+
+        print("Done,\n* Optimizing number of points...", end='')
         for x in range(self.size):
             for y in range(self.size):
                 for z in range(self.size):
@@ -70,7 +70,7 @@ class Model:
                             self.final_matrix[x][y][z] = 1
 
         start = 0
-        print("完成\n* 数据格式化……", end='')
+        print("Done.\n* Formatting data...", end='')
         for x in range(self.size):
             for z in range(self.size):
                 started = False;
@@ -94,7 +94,7 @@ class Model:
                                 "start": (x, start-0.5, z),
                                 "length": y - start
                             })
-        print("完成\n\n")
+        print("Done.\n\n")
 
 
     def is_deletable(self, x, y, z):

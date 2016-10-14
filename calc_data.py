@@ -9,11 +9,12 @@ from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 
 MODELSIZE = 21
+PATH_TO_MAYA_SCRIPT = "/Users/Sean/Library/Preferences/Autodesk/maya/2016/prefs/scriptEditorTemp/gen_model.py"
 
 fig = plt.figure(figsize=(12,12))
 ax = fig.add_subplot(111, projection='3d')
 #ax2 = fig.add_subplot(111, projection='3d')
-print("设定图纸大小为 " + str(MODELSIZE) + "x" + str(MODELSIZE) + "，计算中")
+print("Model size is set to: " + str(MODELSIZE) + "x" + str(MODELSIZE) + ". Calculating...")
 model = Model(MODELSIZE, crab, lotus)
 
 
@@ -47,12 +48,12 @@ for m in model.modeldata:
 #for point in model.fixed_points:
 #    print(model.is_deletable(point[0], point[1], point[2]))
 
-print("统计数据：\n* 10cm:" + str(length1) + " 根\n* 20cm:" + str(length2) + " 根\n* 30cm:" + str(length3) + " 根")
-print("共计 " + str(len(model.modeldata)) + " 根")
+print("Analytics：\n* 10cm:" + str(length1) + "\n* 20cm:" + str(length2) + " \n* 30cm:" + str(length3))
+print("Total: " + str(len(model.modeldata)))
 
-print("\n保存数据文件……")
+print("\nSaving data files……")
 f = open("modeldata.py", "w")
-f2 = open("/Users/Sean/Library/Preferences/Autodesk/maya/2016/prefs/scriptEditorTemp/gen_model.py", "w")
+f2 = open(PATH_TO_MAYA_SCRIPT, "w")
 f.write("modeldata=" + repr(model.modeldata))
 f2.write(\
 """from maya.cmds import *
@@ -80,5 +81,5 @@ f2.close()
 #ax.set_xlabel('X Label')
 #ax.set_ylabel('Y Label')
 #ax.set_zlabel('Z Label')
-print("显示效果图……")
+print("Rendering 3D preview……")
 plt.show()

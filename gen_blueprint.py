@@ -18,8 +18,8 @@ for i in range(21):
 
 i = 1
 for layer in layers:
-    print("正在生成…… (" + str(i) + "/" + str(len(layers))+")")
-    img = svgwrite.Drawing(filename="图纸/svg/"+str(i)+".svg", size=(23*GRIDSIZE, 23*GRIDSIZE))
+    print("Generating... (" + str(i) + "/" + str(len(layers))+")")
+    img = svgwrite.Drawing(filename="blueprint/svg/"+str(i)+".svg", size=(23*GRIDSIZE, 23*GRIDSIZE))
     img.add(img.rect((0, 0), (GRIDSIZE*23, GRIDSIZE*23), fill='white'))
     for x in range(21):
         for y in range(21):
@@ -41,8 +41,8 @@ for layer in layers:
     img.save()
     i += 1
 
-for f in glob("图纸/svg/*.svg"):
-    print("写入图片 " + "图纸/png/"+basename(f)[:-4]+".png")
-    cairosvg.svg2png(url=f, write_to="图纸/png/"+basename(f)[:-4]+".png")
+for f in glob("blueprint/svg/*.svg"):
+    print("Writing image " + "blueprint/png/"+basename(f)[:-4]+".png")
+    cairosvg.svg2png(url=f, write_to="blueprint/png/"+basename(f)[:-4]+".png")
 
-print("\n图纸生成完毕")
+print("\nFinished generating blueprints")
