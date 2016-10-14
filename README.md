@@ -2,11 +2,11 @@
 Generates minimum vertical bamboo tubes' length and position inside an N * N * N array, so that they makes up the two different images specified when seen from different sides.
 
 ### Dependencies
-##### Python Libraries
-**numpy** and **matplotlib** for generating 3d previews.
-**svgwrite** and **cairosvg** for generating layout images.
-##### Software
-**Autodesk Maya** for generating obj model file.
+* ##### Python Libraries
+  * **numpy** and **matplotlib** for generating 3d previews.
+  * **svgwrite** and **cairosvg** for generating layout images.
+* ##### Software
+  * **Autodesk Maya** for generating obj model file.
 
 ### Usage
 1. Set shebang in *calc_data.py* to a working python intepreter with **matplotlib** and **numpy** installed. 
