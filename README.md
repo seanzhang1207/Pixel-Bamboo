@@ -6,7 +6,7 @@ Generates minimum vertical bamboo tubes' length and position inside an N * N * N
   * **numpy** and **matplotlib** for generating 3d previews.
   * **svgwrite** and **cairosvg** for generating layout images.
 * Software
-  * **Autodesk Maya** for generating obj model file.
+  * **Autodesk Maya** for generating obj model file. (Note that a Maya with Python support is needed to do this)
 
 ### Usage
 1. Set shebang in *calc_data.py* to a working python intepreter with **matplotlib** and **numpy** installed. 
