@@ -1,5 +1,5 @@
 # Pixel-Bamboo
-Generates minimum vertical bamboo tubes' length and position inside an N * N * N array, so that they makes up the two different images specified when seen from different sides.
+Generates minimum vertical bamboo tubes' length and position inside an N * N * N array, so that they makes up the two different images specified when seen from different sides. Used in a installation project on Lianhua Island in Lake Yangcheng, at Suzhou, Jiangsu, China. Pictures are to be updated soon. 
 
 ### Dependencies
 * Python Libraries
