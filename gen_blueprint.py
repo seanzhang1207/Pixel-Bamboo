@@ -20,20 +20,29 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
+from __future__ import print_function
 from modeldata import modeldata
 import svgwrite
 import cairosvg
 from glob import glob
 from os.path import basename
 
+
 GRIDSIZE = 100
 
 layers = [[] for i in range(21)]
 
+print("Select slicing derection:\n0. X-Axis\n1. Y-Axis\n2. Z-Axis\nInput selection: ", end='')
+
+direction = input()
+
+while direction != 0 and direction != 1 and direction != 2:
+    print("Selection doesn't exist. Please re-enter.\nInput selection: ", end='')
+    direction = input()
+
 for i in range(21):
     for m in modeldata:
-        if m['start'][2] == i:
+        if m['start'][direction] == i:
             layers[i].append(m)
 
 i = 1
@@ -51,13 +60,18 @@ for layer in layers:
     for y in range(21):
         img.add(img.text(str(y+1), insert=(GRIDSIZE-GRIDSIZE/4, (y+2)*GRIDSIZE-GRIDSIZE/4), text_anchor="end", font_size = GRIDSIZE/2))
 
-    for stick in layer:
-        if stick['length'] == 1:
-            img.add(img.rect(((stick['start'][0]+1)*GRIDSIZE, (stick['start'][1]+0.5)*GRIDSIZE), (GRIDSIZE, stick['length']*GRIDSIZE), fill='red', stroke='black', stroke_width = GRIDSIZE / 20))
-        elif stick['length'] == 2:
-            img.add(img.rect(((stick['start'][0]+1)*GRIDSIZE, (stick['start'][1]+0.5)*GRIDSIZE), (GRIDSIZE, stick['length']*GRIDSIZE), fill='green', stroke='black', stroke_width = GRIDSIZE / 20))
-        elif stick['length'] == 3:
-            img.add(img.rect(((stick['start'][0]+1)*GRIDSIZE, (stick['start'][1]+0.5)*GRIDSIZE), (GRIDSIZE, stick['length']*GRIDSIZE), fill='blue', stroke='black', stroke_width = GRIDSIZE / 20))
+    if direction == 0 or direction == 2:
+        for stick in layer:
+            if stick['length'] == 1:
+                img.add(img.rect(((stick['start'][2-direction]+1)*GRIDSIZE, (stick['start'][1]+0.5)*GRIDSIZE), (GRIDSIZE, stick['length']*GRIDSIZE), fill='red', stroke='black', stroke_width = GRIDSIZE / 20))
+            elif stick['length'] == 2:
+                img.add(img.rect(((stick['start'][2-direction]+1)*GRIDSIZE, (stick['start'][1]+0.5)*GRIDSIZE), (GRIDSIZE, stick['length']*GRIDSIZE), fill='green', stroke='black', stroke_width = GRIDSIZE / 20))
+            elif stick['length'] == 3:
+                img.add(img.rect(((stick['start'][2-direction]+1)*GRIDSIZE, (stick['start'][1]+0.5)*GRIDSIZE), (GRIDSIZE, stick['length']*GRIDSIZE), fill='blue', stroke='black', stroke_width = GRIDSIZE / 20))
+    else:
+        for m in modeldata:
+            if (i-0.5) >= m['start'][1] and (i-1) < m['start'][1] + m['length']:
+                img.add(img.rect(((m['start'][0]+1)*GRIDSIZE, (m['start'][2]+1)*GRIDSIZE), (GRIDSIZE, GRIDSIZE), fill='red', stroke='black', stroke_width = GRIDSIZE / 20))
     img.save()
     i += 1
 

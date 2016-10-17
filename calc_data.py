@@ -4,7 +4,7 @@
 # Copyright (c) 2016 Shengchen Zhang
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
-# this software and associated documentation files (the "Software"), to deal in 
+# this software and associated documentation files (the "Software"), to deal in
 # the Software without restriction, including without limitation the rights to
 # use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
 # of the Software, and to permit persons to whom the Software is furnished to do
@@ -88,9 +88,7 @@ for m in modeldata:
 
 select(*pipes)
 polyUnite()
-rotate(180, 0, 0)
-
-eval("file -force -options \\"groups=1;ptgroups=1;materials=1;smoothing=1;normals=1\\" -typ \\"OBJexport\\" -pr -es \\"/Users/Sean/Desktop/Generative/模型/model.obj\\";")""")
+rotate(180, 0, 0)""")
 f.close()
 f2.close()
 

@@ -24,7 +24,7 @@ class Model:
         self.size = size
         self.lines = 0
         self.matrix = [[[0 for i in range(size)] for j in range(size)] for k in range(size)]
-        self.final_matrix = [[[0 for i in range(size)] for j in range(size)] for k in range(size)]
+        self.optimized_matrix = [[[0 for i in range(size)] for j in range(size)] for k in range(size)]
         self.xygraph = graph1
         self.zygraph = graph2
         self.xs = []
@@ -55,37 +55,54 @@ class Model:
         #generate initial tubes
 
         def is_deletable(x, y, z):
-            if x <= 10:
+            if x <= (self.size-1)/2:
                 for tmpx in range(0, x):
                     if self.matrix[tmpx][y][z] == 1:
-                        if y <= 10:
-                            for tmpy in range(0, y):
-                                if self.matrix[x][tmpy][z] == 1:
+                        if z <= (self.size-1)/2:
+                            for tmpz in range(0, z):
+                                if self.matrix[x][y][tmpz] == 1:
                                     return True
                         else:
-                            for tmpy in range(y+1, 21):
-                                if self.matrix[x][tmpy][z] == 1:
+                            for tmpz in range(z+1, 21):
+                                if self.matrix[x][y][tmpz] == 1:
                                     return True
             else:
-                for tmpx in range(x+1, 21):
+                for tmpx in range(x+1, self.size):
                     if self.matrix[tmpx][y][z] == 1:
-                        if y <= 10:
-                            for tmpy in range(0, y):
-                                if self.matrix[x][tmpy][z] == 1:
+                        if z <= (self.size-1)/2:
+                            for tmpz in range(0, y):
+                                if self.matrix[x][y][tmpz] == 1:
                                     return True
                         else:
-                            for tmpy in range(y+1, 21):
-                                if self.matrix[x][tmpy][z] == 1:
+                            for tmpz in range(y+1, self.size):
+                                if self.matrix[x][y][tmpz] == 1:
                                     return True
             return False
 
         print("Done,\n* Optimizing number of points...", end='')
+        #"""
         for x in range(self.size):
             for y in range(self.size):
                 for z in range(self.size):
                     if self.matrix[x][y][z] == 1:
-                        if not is_deletable(x, y, z):
-                            self.final_matrix[x][y][z] = 1
+                        if is_deletable(x, y, z):
+                            self.matrix[x][y][z] = 0
+        #"""
+        # Note that the optimization process above is flawed and causes certain
+        # losses of nessessary pixels. Below is a hot fix for the problem by
+        # filling in the missing pixels manually. This is to be changed in the
+        # future.
+
+        self.matrix[13][9][3] = 1
+        self.matrix[13][8][2] = 1
+        self.matrix[13][7][2] = 1
+
+        self.matrix[12][9][3] = 1
+        self.matrix[12][8][2] = 1
+
+        self.matrix[16][9][12] = 1
+        self.matrix[16][8][12] = 1
+        self.matrix[16][7][12] = 1
 
         start = 0
         print("Done.\n* Formatting data...", end='')
@@ -94,7 +111,7 @@ class Model:
                 started = False;
                 for y in range(self.size):
                     length = 1;
-                    if self.final_matrix[x][y][z] == 1:
+                    if self.matrix[x][y][z] == 1:
                         if started == True:
                             length += 1
                         else:
